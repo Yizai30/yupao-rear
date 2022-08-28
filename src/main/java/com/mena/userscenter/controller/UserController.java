@@ -1,6 +1,7 @@
 package com.mena.userscenter.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mena.userscenter.common.BaseResponse;
 import com.mena.userscenter.common.ErrorCode;
 import com.mena.userscenter.common.ResultUtils;
@@ -109,12 +110,18 @@ public class UserController {
         return ResultUtils.success(userList);
     }
 
+    /**
+     * 推荐用户（分页查询）
+     * @param pageSize 每页大小
+     * @param pageNum 第几页
+     * @param request
+     * @return
+     */
     @GetMapping("/recommend")
-    public BaseResponse<List<User>> recommendUsers(HttpServletRequest request) {
+    public BaseResponse<Page<User>> recommendUsers(long pageSize, long pageNum, HttpServletRequest request) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        List<User> userList = userService.list(queryWrapper);
-        List<User> list = userList.stream().map(user -> userService.getSafetyUser(user)).collect(Collectors.toList());
-        return ResultUtils.success(list);
+        Page<User> userList = userService.page(new Page<>(pageNum, pageSize), queryWrapper);
+        return ResultUtils.success(userList);
     }
 
     @PostMapping("/update")
