@@ -40,6 +40,11 @@ public class User implements Serializable {
     private Byte gender;
 
     /**
+     * 个人简介
+     */
+    private String userProfile;
+
+    /**
      * 密码
      */
     private String userPassword;
@@ -84,6 +89,11 @@ public class User implements Serializable {
      * 星球编号
      */
     private String planetCode;
+
+    /**
+     * 标签 json 列表
+     */
+    private String tags;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
