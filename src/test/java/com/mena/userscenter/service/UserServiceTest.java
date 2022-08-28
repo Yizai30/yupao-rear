@@ -1,5 +1,7 @@
 package com.mena.userscenter.service;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import com.mena.userscenter.model.domain.User;
 import org.junit.jupiter.api.Test;
@@ -68,5 +70,12 @@ public class UserServiceTest {
         result = userService.userRegister(userAccount, userPassword, checkPassword, planetCode);
 //        assertTrue(result > 0);
         assertEquals(-1, result);
+    }
+
+    @Test
+    public void testSearchUsersByTags() {
+        List<String> tagNameList = Arrays.asList("java", "python");
+        List<User> userList = userService.searchUsersByTags(tagNameList);
+        assertNotNull(userList);
     }
 }
