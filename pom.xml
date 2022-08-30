@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.mena</groupId>
-    <artifactId>users-center</artifactId>
+    <artifactId>yupao-rear</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>users-center</name>
-    <description>User Center project for Spring Boot</description>
+    <name>yupao-rear</name>
+    <description>Yupao project for Spring Boot</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
