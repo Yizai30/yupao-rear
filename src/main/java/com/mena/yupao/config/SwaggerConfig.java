@@ -38,7 +38,7 @@ public class SwaggerConfig {
                 .useDefaultResponseMessages(true)
                 .forCodeGeneration(false)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.mena.userscenter.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.mena.yupao.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
