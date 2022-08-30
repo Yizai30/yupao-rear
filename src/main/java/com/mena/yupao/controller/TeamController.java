@@ -7,25 +7,15 @@ import com.mena.yupao.common.ErrorCode;
 import com.mena.yupao.common.ResultUtils;
 import com.mena.yupao.exception.BusinessException;
 import com.mena.yupao.model.domain.Team;
-import com.mena.yupao.model.domain.User;
-import com.mena.yupao.model.request.UserLoginRequest;
-import com.mena.yupao.model.request.UserRegisterRequest;
+import com.mena.yupao.model.dto.TeamQuery;
 import com.mena.yupao.service.TeamService;
 import com.mena.yupao.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.util.CollectionUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-
-import static com.mena.yupao.constant.UserConstant.USER_LOGIN_STATE;
 
 /**
  * 队伍接口
@@ -89,6 +79,31 @@ public class TeamController {
             throw new BusinessException(ErrorCode.SEARCH_NULL);
         }
         return ResultUtils.success(team);
+    }
+
+    @GetMapping("/list")
+    public BaseResponse<List<Team>> listTeams(TeamQuery teamQuery) {
+        if (teamQuery == null) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        Team team = new Team();
+        BeanUtils.copyProperties(team, teamQuery);
+        QueryWrapper<Team> queryWrapper = new QueryWrapper<>(team);
+        List<Team> teamList = teamService.list(queryWrapper);
+        return ResultUtils.success(teamList);
+    }
+
+    @GetMapping("/list/page")
+    public BaseResponse<Page<Team>> listTeamsByPage(TeamQuery teamQuery) {
+        if (teamQuery == null) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        Team team = new Team();
+        BeanUtils.copyProperties(team, teamQuery);
+        Page<Team> page = new Page<>(teamQuery.getPageNum(), teamQuery.getPageSize());
+        QueryWrapper<Team> queryWrapper = new QueryWrapper<>(team);
+        Page<Team> resultPage = teamService.page(page, queryWrapper);
+        return ResultUtils.success(resultPage);
     }
 
 }
