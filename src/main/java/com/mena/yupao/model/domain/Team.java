@@ -47,7 +47,7 @@ public class Team implements Serializable {
     /**
      * 0-公开，1-私有，2-加密
      */
-    private Integer userStatus;
+    private Integer status;
 
     /**
      * 密码
