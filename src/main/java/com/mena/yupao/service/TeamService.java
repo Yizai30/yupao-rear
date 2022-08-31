@@ -2,6 +2,7 @@ package com.mena.yupao.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.mena.yupao.model.domain.Team;
+import com.mena.yupao.model.domain.User;
 
 /**
 * @author Mena
@@ -10,4 +11,12 @@ import com.mena.yupao.model.domain.Team;
 */
 public interface TeamService extends IService<Team> {
 
+    /**
+     * 创建队伍
+     *
+     * @param team
+     * @param loginUser
+     * @return
+     */
+    long addTeam(Team team, User loginUser);
 }
