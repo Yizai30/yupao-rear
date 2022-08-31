@@ -7,7 +7,9 @@ import com.mena.yupao.common.ErrorCode;
 import com.mena.yupao.common.ResultUtils;
 import com.mena.yupao.exception.BusinessException;
 import com.mena.yupao.model.domain.Team;
+import com.mena.yupao.model.domain.User;
 import com.mena.yupao.model.dto.TeamQuery;
+import com.mena.yupao.model.request.TeamAddRequest;
 import com.mena.yupao.service.TeamService;
 import com.mena.yupao.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -34,15 +37,15 @@ public class TeamController {
     private TeamService teamService;
 
     @PostMapping("/add")
-    public BaseResponse<Long> addTeam(@RequestBody Team team) {
-        if (team == null) {
+    public BaseResponse<Long> addTeam(@RequestBody TeamAddRequest teamAddRequest, HttpServletRequest request) {
+        if (teamAddRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        boolean save = teamService.save(team);
-        if (!save) {
-            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "插入失败");
-        }
-        return ResultUtils.success(team.getId());
+        User loginUser = userService.getLoginUser(request);
+        Team team = new Team();
+        BeanUtils.copyProperties(teamAddRequest, team);
+        long teamId = teamService.addTeam(team, loginUser);
+        return ResultUtils.success(teamId);
     }
 
     @PostMapping("/delete")
