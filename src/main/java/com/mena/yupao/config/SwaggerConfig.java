@@ -30,7 +30,7 @@ public class SwaggerConfig {
      *
      * @return
      */
-    @Bean(value = "dockerBean")
+    @Bean(value = "docketBean")
     public Docket docketBean() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("用户中心")
