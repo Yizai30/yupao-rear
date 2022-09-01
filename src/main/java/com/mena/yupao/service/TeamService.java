@@ -3,6 +3,10 @@ package com.mena.yupao.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.mena.yupao.model.domain.Team;
 import com.mena.yupao.model.domain.User;
+import com.mena.yupao.model.dto.TeamQuery;
+import com.mena.yupao.model.vo.TeamUserVO;
+
+import java.util.List;
 
 /**
 * @author Mena
@@ -19,4 +23,13 @@ public interface TeamService extends IService<Team> {
      * @return
      */
     long addTeam(Team team, User loginUser);
+
+    /**
+     * 搜索队伍
+     *
+     * @param teamQuery
+     * @param isAdmin
+     * @return
+     */
+    List<TeamUserVO> listTeams(TeamQuery teamQuery, boolean isAdmin);
 }
