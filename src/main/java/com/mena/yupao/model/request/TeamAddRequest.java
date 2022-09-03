@@ -2,10 +2,13 @@ package com.mena.yupao.model.request;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class TeamAddRequest {
+public class TeamAddRequest implements Serializable {
+
+    private static final long serialVersionUID = -1937843670365091220L;
 
     /**
      * 队伍名称
