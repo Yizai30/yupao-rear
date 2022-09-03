@@ -74,7 +74,7 @@ public class UserController {
     @PostMapping("/logout")
     public BaseResponse<Integer> userLogout(HttpServletRequest request) {
         if (request == null) {
-            throw new BusinessException(ErrorCode.NULL_ERROR);
+            throw new BusinessException(ErrorCode.REQUEST_NULL);
         }
         int result = userService.userLogout(request);
         return ResultUtils.success(result);
